@@ -2,6 +2,10 @@
 <resources>
   <color name="colorPrimary">#000000</color>
   <color name="colorPrimaryDark">#000000</color>
-  <color name="colorAccent">#78E077</color>
+  <color name="colorAccent">#fff</color>
+  <color name="fff">#fff</color>
+  <color name="Enlightened">#009944</color>
+  <color name="Resistance">#08BDF7</color>
+  <color name="color_101010">#101010</color>
 
 </resources>

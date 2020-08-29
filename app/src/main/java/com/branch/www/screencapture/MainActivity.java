@@ -1,21 +1,17 @@
 package com.branch.www.screencapture;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.projection.MediaProjectionManager;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.blankj.utilcode.constant.PermissionConstants;
@@ -24,7 +20,7 @@ import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 
-import java.util.List;
+import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends FragmentActivity {
 
@@ -34,14 +30,23 @@ public class MainActivity extends FragmentActivity {
   private Button stareingress;
 
   public final static String  SAVE_IMAGE_LOCAL_IS="save_image_local";
+  public final static String  FACTION_IS="faction";
+  public final static String  Enlightened="Enlightened";//启蒙者 (绿)
+  public final static String  Resistance="Resistance";//反抗者 （蓝）
+  String ingressPkg="com.nianticproject.ingress";//ingress 包名
+
+  private GifImageView gifimage;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
+    gifimage = (GifImageView) findViewById(R.id.gif_image);
     saveimagelocal = (CheckBox) findViewById(R.id.save_image_local);
     stareingress = (Button) findViewById(R.id.stare_ingress);
-    saveimagelocal.setChecked(SPUtils.getInstance().getBoolean(SAVE_IMAGE_LOCAL_IS));
+    stareingress.setEnabled(true);
+    saveimagelocal.setEnabled(true);
     saveimagelocal.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -73,7 +78,6 @@ public class MainActivity extends FragmentActivity {
     stareingress.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        String ingressPkg="com.nianticproject.ingress";
         if (AppUtils.isAppInstalled(ingressPkg)){
           AppUtils.launchApp(ingressPkg);
           moveTaskToBack(false);
@@ -82,8 +86,19 @@ public class MainActivity extends FragmentActivity {
         }
       }
     });
-    requestCapturePermission();
+    //阵营的选择
+    String faction= SPUtils.getInstance().getString(FACTION_IS,"");
 
+    if(faction.equals(Enlightened)){
+      stareingress.setBackgroundColor(getResources().getColor(R.color.Enlightened));
+      gifimage.setImageResource(R.drawable.e);
+    }else if(faction.equals(Resistance)){
+      stareingress.setBackgroundColor(getResources().getColor(R.color.Resistance));
+      gifimage.setImageResource(R.drawable.r);
+    }
+    saveimagelocal.setChecked(SPUtils.getInstance().getBoolean(SAVE_IMAGE_LOCAL_IS));
+
+    requestCapturePermission();
 
   }
 
@@ -92,25 +107,22 @@ public class MainActivity extends FragmentActivity {
 
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
       //5.0 之后才允许使用屏幕截图
-
+      ToastUtils.showLong("当前Android版本不支持截图功能！！！");
       return;
     }
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       if (!Settings.canDrawOverlays(this)) {
-        Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT);
+        Toast.makeText(this, "请授权应用悬浮桌面权限", Toast.LENGTH_SHORT);
         startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 1);
-      } else {
-        MediaProjectionManager mediaProjectionManager = (MediaProjectionManager)
-                getSystemService(Context.MEDIA_PROJECTION_SERVICE);
-        startActivityForResult(
-                mediaProjectionManager.createScreenCaptureIntent(),
-                REQUEST_MEDIA_PROJECTION);
-
-//        startService(new Intent(MainActivity.this, FloatingImageDisplayService.class));
+      }else{
+            MediaProjectionManager mediaProjectionManager = (MediaProjectionManager)
+                    getSystemService(Context.MEDIA_PROJECTION_SERVICE);
+            startActivityForResult(
+                    mediaProjectionManager.createScreenCaptureIntent(),
+                    REQUEST_MEDIA_PROJECTION);
       }
     }
-
   }
 
   @Override
@@ -129,4 +141,8 @@ public class MainActivity extends FragmentActivity {
 
   }
 
+  @Override
+  protected void onResume() {
+    super.onResume();
+  }
 }

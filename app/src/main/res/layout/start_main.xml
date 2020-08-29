@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/Resistance"
+            android:src="@drawable/r"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <View
+            android:background="#50ffffff"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/Enlightened"
+            android:src="@drawable/e"
+            android:scaleType="fitXY"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <pl.droidsonroids.gif.GifTextView
+        android:background="@color/fff"
+        android:gravity="center_horizontal"
+        android:text="请选择你所在的阵营"
+        android:textColor="@color/color_101010"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

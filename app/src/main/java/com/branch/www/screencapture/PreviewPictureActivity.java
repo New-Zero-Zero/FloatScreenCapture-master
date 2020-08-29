@@ -46,12 +46,11 @@ public class PreviewPictureActivity extends FragmentActivity implements GlobalSc
 
   }
 
-  @Override
   public void onStartShot() {
 
   }
 
-  @Override
+
   public void onFinishShot(boolean success) {
     mPreviewImageView.setVisibility(View.VISIBLE);
   }
