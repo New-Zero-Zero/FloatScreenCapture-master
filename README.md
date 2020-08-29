@@ -1,0 +1,2 @@
+# FloatScreenCapture
+ 悬浮于Android桌面的截图，可上下移动。用于记录一些App有临时闪现的图像进行截图记录后还原
