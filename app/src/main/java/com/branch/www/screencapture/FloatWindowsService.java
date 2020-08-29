@@ -32,6 +32,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.SPUtils;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -365,31 +367,33 @@ public class FloatWindowsService extends Service {
         imageView5.setImageBitmap(bitmap);
 
       }
-
-      //      if (bitmap != null) {
-//        try {
-//          fileImage = new File(FileUtil.getScreenShotsName(getApplicationContext()));
-//          if (!fileImage.exists()) {
-//            fileImage.createNewFile();
-//          }
-//          FileOutputStream out = new FileOutputStream(fileImage);
-//          if (out != null) {
-//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-//            out.flush();
-//            out.close();
-//            Intent media = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//            Uri contentUri = Uri.fromFile(fileImage);
-//            media.setData(contentUri);
-//            sendBroadcast(media);
-//          }
-//        } catch (FileNotFoundException e) {
-//          e.printStackTrace();
-//          fileImage = null;
-//        } catch (IOException e) {
-//          e.printStackTrace();
-//          fileImage = null;
-//        }
-//      }
+      if(!SPUtils.getInstance().getBoolean(MainActivity.SAVE_IMAGE_LOCAL_IS)){
+        return null;
+      }
+      if (bitmap != null) {
+        try {
+          fileImage = new File(FileUtil.getScreenShotsName(getApplicationContext()));
+          if (!fileImage.exists()) {
+            fileImage.createNewFile();
+          }
+          FileOutputStream out = new FileOutputStream(fileImage);
+          if (out != null) {
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.flush();
+            out.close();
+            Intent media = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            Uri contentUri = Uri.fromFile(fileImage);
+            media.setData(contentUri);
+            sendBroadcast(media);
+          }
+        } catch (FileNotFoundException e) {
+          e.printStackTrace();
+          fileImage = null;
+        } catch (IOException e) {
+          e.printStackTrace();
+          fileImage = null;
+        }
+      }
 
       if (fileImage != null) {
         return bitmap;
