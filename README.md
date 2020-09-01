@@ -20,8 +20,8 @@
 
 
  
- <img src="https://github.com/New-Zero-Zero/FloatScreenCapture-master/blob/master/Image/Screenshot_2020-08-29-18-01-25-312_com.branch.www.jpg" width="300" height="400" alt=""/><br/>
-<img src="https://github.com/New-Zero-Zero/FloatScreenCapture-master/blob/master/Image/Screenshot_2020-08-29-03-30-22.jpg" width="300" height="400" alt=""/><br/>
+ 
+<img src="https://github.com/New-Zero-Zero/FloatScreenCapture-master/blob/master/Image/Screenshot_2020-08-29-03-30-22.png" width="300" height="400" alt=""/><br/>
 <img src="https://github.com/New-Zero-Zero/FloatScreenCapture-master/blob/master/Image/Screenshot_2020-08-29-09-52-40-630_com.nianticpro.jpg" width="300" height="400" alt=""/><br/>
 <img src="https://github.com/New-Zero-Zero/FloatScreenCapture-master/blob/master/Image/Screenshot_2020-08-29-13-15-34-619_com.nianticpro.jpg" width="300" height="400" alt=""/><br/>
 
